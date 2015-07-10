@@ -1,7 +1,10 @@
 import todoist
 
-api = todoist.TodoistAPI('53e7efb9dcaf60177784b88cc094805d7045eedb') #api key needed for todoist
+api_key = raw_input("enter api key: ")
+main_project_name = raw_input("enter project name - case sensitive: ")
+label_name = raw_input("enter label name - this one's case insensitive: ")
 
+api = todoist.TodoistAPI(api_key) #api key needed for todoist
 
 #determines if a task belongs to any project in a list of given projects
 def taskInProject(task, project_list):
@@ -25,7 +28,7 @@ def sortProjectsByItemOrder(project_universe):
 projects = api.sync(resource_types=['projects']) #gets dictionary of projects and associated data
 my_projects=[]
 # uses generator expression. http://stackoverflow.com/questions/8653516/python-list-of-dictionaries-search
-my_projects.append(next((item for item in projects[u'Projects'] if item[u'name'] == "Eventide"), None)) #gets main project
+my_projects.append(next((item for item in projects[u'Projects'] if item[u'name'] == main_project_name), None)) #gets main project
 main_project_id = my_projects[0][u'id']
 main_project_item_order = my_projects[0][u'item_order'] #placement in the projects list
 
@@ -40,7 +43,7 @@ for j in range(main_project_item_order+1, len(projects[u'Projects'])):
 
 ###Get @work label id
 labels = api.sync(resource_types=['labels'])
-my_label = next((item for item in labels[u'Labels'] if item[u'name'] == "work"), None)
+my_label = next((item for item in labels[u'Labels'] if item[u'name'] == label_name), None)
 my_label_id = my_label[u'id']
 
 ###Get tasks in my_projects
