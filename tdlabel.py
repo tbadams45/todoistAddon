@@ -1,3 +1,7 @@
+#This script will add a given label to all of the tasks in a given project and its 
+#subprojects. 
+
+
 import todoist
 
 api_key = raw_input("enter api key: ")
