@@ -10,6 +10,7 @@ label_name = raw_input("enter label name - this one's case insensitive: ")
 
 api = todoist.TodoistAPI(api_key) #api key needed for todoist
 
+print('Working...')
 #determines if a task belongs to any project in a list of given projects
 def taskInProject(task, project_list):
 	for proj in project_list:
@@ -63,7 +64,7 @@ for item in tasks_in_my_projects:
 	task_labels = task[u'labels'] #don't want to overwrite current labels of work project
 	task_labels.append(my_label_id)
 	task.update(labels=task_labels)
-	
 
+print('\nCommitting changes...')	
 api.commit()
 print('\nDone!')
